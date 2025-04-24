@@ -1,0 +1,873 @@
+import 'dart:math';
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'src/browser_utils_stub.dart'
+
+if (dart.library.html) 'src/browser_utils_html.dart';
+
+void main() {
+  runApp(const BookOfSolApp());
+}
+
+class BookOfSolApp extends StatelessWidget {
+  const BookOfSolApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BookOfSolPage(),
+    );
+  }
+}
+
+class BookOfSolPage1 extends StatefulWidget {
+  const BookOfSolPage1({super.key});
+
+  @override
+  State<BookOfSolPage1> createState() => _BookOfSolPage1State();
+}
+
+class _BookOfSolPage1State extends State<BookOfSolPage1>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool flipped = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _animation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  void _flipPage() {
+    if (!flipped) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+    flipped = !flipped;
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFEADFFF),
+      body: Stack(
+        children: [
+          // 🔵 Фоновое изображение на весь экран
+          Positioned.fill(
+            child: Image.asset(
+              'assets/background1.jpeg', // <-- путь к твоей картинке
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              // color:  Colors.white7,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white70, // сверху полупрозрачный белый
+                    Colors.transparent, // вниз исчезает
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: _flipPage,
+            child: Center(
+              child: AnimatedBuilder(
+                animation: _animation,
+                builder: (context, child) {
+                  final angle = _animation.value * pi;
+                  final isFront = _animation.value < 0.5;
+
+                  return Stack(
+                    // alignment: Alignment.center,
+                    children: [
+                      // Животные по бокам
+                      Positioned(
+                        left: 40,
+                        child: Column(
+                          children: [
+                            Stack(
+                              children: [
+                                AnimatedScale(
+                                  scale: isFront ? 1.0 : 0.6,
+                                  duration: const Duration(milliseconds: 400),
+                                  child: Image.asset(
+                                    'assets/pray1.png',
+                                    width: 100,
+                                  ),
+                                ),
+                                // AnimatedScale(
+                                //   scale: isFront ? 1.0 : 0.6,
+                                //   duration: const Duration(milliseconds: 400),
+                                //   child: Image.asset(
+                                //     'assets/pray12.png',
+                                //     width: 100,
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray2.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray11.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray5.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray6.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray7.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray9.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray3.png',
+                                width: 100,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Positioned(
+                        right: 40,
+                        child: Column(
+                          children: [
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray15.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray4.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray8.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray12.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray10.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray13.png',
+                                width: 100,
+                              ),
+                            ),
+                            AnimatedScale(
+                              scale: isFront ? 1.0 : 0.6,
+                              duration: const Duration(milliseconds: 400),
+                              child: Image.asset(
+                                'assets/pray14.png',
+                                width: 100,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Transform(
+                        alignment: Alignment.center,
+                        transform:
+                            Matrix4.identity()
+                              ..setEntry(3, 2, 0.001)
+                              ..rotateY(angle),
+                        child:
+                            isFront
+                                ? Image.asset(
+                                  'assets/book_open2.png',
+                                  width: 150,
+                                )
+                                : Image.asset(
+                                  'assets/book_open2.png',
+                                  width: 150,
+                                ),
+                      ),
+
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BookOfSolPage extends StatefulWidget {
+  const BookOfSolPage({super.key});
+
+  @override
+  State<BookOfSolPage> createState() => _BookOfSolPageState();
+}
+
+class _BookOfSolPageState extends State<BookOfSolPage>
+    with SingleTickerProviderStateMixin {
+  int currentPageState = 0; // от 0 до 10
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  bool flipped = false;
+  bool isBookVisible = false; // Книга появляется позже
+  List<bool> animalsVisible = List.generate(
+    15,
+    (index) => false,
+  ); // Список видимости животных
+  late List<Animation<double>> animalAnimations;
+  late Future<void> animalAnimationFuture; // Для задержки
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 100),
+      vsync: this,
+    );
+    _animation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    // Инициализация анимаций для животных
+    animalAnimations = List.generate(15, (i) {
+      return Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(
+          parent: _controller,
+          curve: Interval(i * 0.1, (i + 1) * 0.1, curve: Curves.easeInOut),
+        ),
+      );
+    });
+
+    // Задержка для появления книги после того, как все животные анимируются
+    animalAnimationFuture = Future.delayed(Duration(seconds: 7), () {
+      setState(() {
+        isBookVisible = true;
+      });
+    });
+
+    // Запуск анимации для животных с задержкой
+    _controller.forward();
+    _startAnimalAnimations();
+  }
+
+  // Функция для запуска анимации животных с задержкой
+  void _startAnimalAnimations() {
+    for (int i = 0; i < 15; i++) {
+      Future.delayed(Duration(milliseconds: i * 500), () {
+        setState(() {
+          animalsVisible[i] = true;
+        });
+      });
+    }
+  }
+
+  void _flipPage() {
+    if (!flipped) {
+      _controller.forward();
+    } else {
+      _controller.reverse();
+    }
+    setState(() {
+      flipped = !flipped;
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  List<Offset> getArcPositions(double screenHeight, double screenWidth) {
+    final radius = screenWidth < 800 ? 200.0 : 400.0;
+    final center = Offset(screenWidth / 2, screenHeight / 2);
+
+    return List.generate(15, (i) {
+      double angle;
+      if (i < 7) {
+        // Левая половина: от 135° до 225°
+        angle = lerpDouble(pi * 1.25, pi * 0.75, i / 6)! + pi / 18;
+      } else {
+        // Правая половина: от -45° до 45°
+        angle = lerpDouble(-pi * 0.25, pi * 0.25, (i - 7) / 7)! - pi / 18;
+      }
+
+      return Offset(
+        center.dx + radius * cos(angle),
+        center.dy + radius * sin(angle),
+      );
+    });
+  }
+
+  void _nextPage() {
+    setState(() {
+      currentPageState = (currentPageState + 1) % 11;
+    });
+    if (currentPageState != 0) _flipPage();
+  }
+
+  Widget _getBookAsset(screenWidth) {
+    if (currentPageState == 0) {
+      return Image.asset('assets/book.png',width:screenWidth * 0.5 ); // закрытая
+    } else if (currentPageState == 10) {
+      return Transform.scale(
+          scale: 1.6,child: Image.asset('assets/book_open2.png',width:screenWidth  * 0.5 ,)); // полностью открытая
+    } else {
+      return Transform.scale(
+          scale:1.6,child:Image.asset( 'assets/book_open2.png',width: screenWidth  * 0.5 ,));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+
+    final arcPositions = getArcPositions(screenHeight, screenWidth);
+    return Scaffold(
+      backgroundColor: const Color(0xFFEADFFF),
+      body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/background1.jpeg', // <-- путь к твоей картинке
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                // color:  Colors.white7,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white70, // сверху полупрозрачный белый
+                      Colors.transparent, // вниз исчезает
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
+            ),
+            if (currentPageState != 0)
+              Align(
+                alignment: Alignment.topCenter,
+                child: Image.asset(
+                  'assets/title.png',
+                  width: screenWidth < 800 ? 500.0 : 700,
+                ),
+              ),
+            FlashingAura(),
+            if (isBookVisible)
+          Align(
+    alignment: Alignment.center,
+
+                  child: GestureDetector(
+                    onTap: _nextPage,
+                    child:  AnimatedBuilder(
+                      animation: _animation,
+                      builder: (context, child) {
+                        final angle = _animation.value * pi;
+                        final isFront = _animation.value < 0.5;
+
+                        return Transform(
+                          alignment: Alignment.center,
+                          transform:
+                              Matrix4.identity()
+                                ..setEntry(3, 2, 0.001)
+                                ..rotateY(currentPageState != 0 ? angle : 0),
+                          child: AnimatedOpacity(
+                            opacity: isBookVisible ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 15000),
+                            child:                                       _getBookAsset(screenWidth),
+
+                            // isFront
+                            //         ? Image.asset(
+                            //           _getBookAsset(),
+                            //           width: screenWidth * 0.6,
+                            //         )
+                            //         : (currentPageState == 0
+                            //             ? Image.asset(
+                            //               _getBookAsset(),
+                            //               width: screenWidth * 0.6,
+                            //             )
+                            //             : Transform(
+                            //               alignment: Alignment.center,
+                            //               transform:
+                            //                   Matrix4.identity()..rotateY(pi),
+                            //               child: Image.asset(
+                            //                 _getBookAsset(),
+                            //                 width: screenWidth * 0.6,
+                            //               ),
+                            //             )),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+            ...List.generate(15, (i) {
+              final arcPos = arcPositions[i];
+              final isLeft = i < 7;
+              final animalWidth = screenWidth < 800 ? 80.0 : 200.0;
+              double calculateTopOffset(
+                double dy,
+                double screenHeight,
+                int currentPageState,
+              ) {
+                if (currentPageState != 0) {
+                  if (screenHeight < 600) {
+                    return dy + 40;
+                  } else {
+                    return dy - 150;
+                  }
+                } else {
+                  if (screenHeight < 600) {
+                    return dy - 20;
+                  } else {
+                    return dy - 20;
+                  }
+                }
+              }
+
+              final horizontalPadding =
+                  screenHeight < 800
+                      ? 1.0
+                      : 1.0; // симметричный отступ слева и справа
+              final dx =
+                  currentPageState != 0
+                      ? (isLeft
+                          ? horizontalPadding
+                          : screenWidth - horizontalPadding - animalWidth)
+                      : arcPos.dx - animalWidth / 2;
+              final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
+
+              final dy =
+                  currentPageState != 0
+                      ? screenHeight * 0.25 +
+                          (isLeft ? i : i - 7) * animalSpacing
+                      : arcPos.dy - 25;
+              return AnimatedPositioned(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                left: dx,
+                top: calculateTopOffset(dy, screenHeight, currentPageState),
+                child: AnimatedOpacity(
+                  opacity: animalsVisible[i] ? 1.0 : 0.0,
+                  // Управление прозрачностью
+                  duration: const Duration(milliseconds: 200),
+                  child: AnimatedScale(
+                    scale: currentPageState != 0 ? 0.8 : 1.0,
+                    duration: const Duration(milliseconds: 700),
+                    child: Image.asset(
+                      'assets/pray${i + 1}.png',
+                      width: animalWidth,
+                    ),
+                  ),
+                ),
+              );
+            }),
+
+            if (currentPageState != 0)
+              Positioned(
+                bottom: 110,
+                left: 0,
+                right: 0,
+
+                child: Center(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    constraints: BoxConstraints(
+                      maxWidth:
+                          screenWidth < 600
+                              ? screenWidth / 1.1
+                              : screenWidth / 1.8,
+                    ),
+                    height: screenWidth < 600 ? 30 : 50,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF0088CC).withValues(alpha: 0.3),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.white24),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize:
+                                screenWidth < 600
+                                    ? screenWidth / 40
+                                    : screenWidth / 60,
+                          ),
+                        ),
+                        Center(
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.white70,
+                              size:
+                                  screenWidth < 600
+                                      ? screenWidth / 40
+                                      : screenWidth / 60,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(
+                                ClipboardData(
+                                  text:
+                                      'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
+                                ),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Copied!")),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0, // 👈 это важно: растягивает по ширине родителя
+              child: SizedBox(
+                width: screenWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    _buildSocialButton(
+                      'Telegram',
+                      'https://t.me/claponsoltg',
+                      const Color(0xFF0088CC),
+                      'assets/tg.png',
+                    ),
+                    SizedBox(width: 8),
+                    _buildSocialButton(
+                      'X (Twitter)',
+                      'https://x.com/claponsolx',
+                      const Color(0xFF1DA1F2),
+                      'assets/x.png',
+                    ),                    SizedBox(width: 8),
+
+                    _buildSocialButton(
+                      'DexScreener',
+                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                      const Color(0xFF00FF9D),
+                      'assets/dex.png',
+                    ),
+                    SizedBox(width: 8),
+
+                    _buildSocialButton(
+                      'DexScreener',
+                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                      const Color(0xFFECE091),
+                      'assets/pump.png',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+    );
+  }
+}
+
+Widget _buildSocialButton(String label, String url, Color color, String icon) {
+  return MouseRegion(
+    cursor: SystemMouseCursors.click,
+    child:InkWell(
+      onTap: () {
+        openUrl(url);
+      },
+      child: Container(
+        width: 100,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFECE091).withValues(alpha: 0.8),
+              Color(0xFFECE091),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFFFF69B4).withValues(alpha: 0.4),
+              blurRadius: 20,
+              spreadRadius: 2,
+              offset: const Offset(0, 8),
+            ),
+          ],
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
+        child: Image.asset(icon, fit: BoxFit.cover),
+        // Row(
+        //   mainAxisSize: MainAxisSize.min,
+        //   children: [
+        //   Image.asset(
+        // icon,
+        //   fit: BoxFit.cover,
+        //
+        //     ),
+        //     const SizedBox(width: 12),
+        //
+        //     Text(
+        //       label,
+        //
+        //         style: TextStyle(
+        //           fontSize: 26,
+        //           fontWeight: FontWeight.w900,
+        //           color: Colors.white,
+        //           letterSpacing: 1,
+        //         ),
+        //
+        //     ),
+        //   ],
+        // ),
+      ),
+    ),
+  );
+}
+
+class PulsingLight extends StatefulWidget {
+  const PulsingLight({super.key});
+
+  @override
+  State<PulsingLight> createState() => _PulsingLightState();
+}
+
+class _PulsingLightState extends State<PulsingLight>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.5,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
+    _opacityAnimation = Tween<double>(
+      begin: 0.2,
+      end: 0.8,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (_, __) {
+        return Center(
+          child: Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.purpleAccent.withOpacity(_opacityAnimation.value),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.purpleAccent.withOpacity(
+                      _opacityAnimation.value,
+                    ),
+                    blurRadius: 80,
+                    spreadRadius: 20,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class FlashingAura extends StatefulWidget {
+  const FlashingAura({super.key});
+
+  @override
+  State<FlashingAura> createState() => _FlashingAuraState();
+}
+
+class _FlashingAuraState extends State<FlashingAura>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _radiusAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: false);
+
+    _radiusAnimation = Tween<double>(
+      begin: 0.0,
+      end: 600.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _opacityAnimation = Tween<double>(
+      begin: 0.6,
+      end: 0.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (_, __) {
+          return Container(
+            width: _radiusAnimation.value,
+            height: _radiusAnimation.value,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: RadialGradient(
+                colors: [
+                  // Colors.deepPurpleAccent.withOpacity(_opacityAnimation.value * 0.5),
+
+                  // Colors.blue.shade100.withOpacity(_opacityAnimation.value * 0.6),
+                  Colors.indigoAccent.withOpacity(_opacityAnimation.value),
+
+                  // Colors.indigoAccent.withOpacity(_opacityAnimation.value* 0.21),
+                  Colors.white70.withOpacity(_opacityAnimation.value * 0.4),
+                  Colors.yellowAccent.withOpacity(
+                    _opacityAnimation.value * 0.5,
+                  ),
+                ],
+                stops: const [0.0, 0.3, 1.0],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}

@@ -3,9 +3,10 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'src/browser_utils_stub.dart'
 
-if (dart.library.html) 'src/browser_utils_html.dart';
+
+import 'src/browser_utils_stub.dart'
+    if (dart.library.html) 'src/browser_utils_html.dart';
 
 void main() {
   runApp(const BookOfSolApp());
@@ -269,7 +270,6 @@ class _BookOfSolPage1State extends State<BookOfSolPage1>
                                   width: 150,
                                 ),
                       ),
-
                     ],
                   );
                 },
@@ -395,13 +395,20 @@ class _BookOfSolPageState extends State<BookOfSolPage>
 
   Widget _getBookAsset(screenWidth) {
     if (currentPageState == 0) {
-      return Image.asset('assets/book.png',width:screenWidth * 0.5 ); // закрытая
+      return Image.asset(
+        'assets/book.png',
+        width: screenWidth * 0.5,
+      ); // закрытая
     } else if (currentPageState == 10) {
       return Transform.scale(
-          scale: 1.6,child: Image.asset('assets/book_open2.png',width:screenWidth  * 0.5 ,)); // полностью открытая
+        scale: 1.6,
+        child: Image.asset('assets/book_open2.png', width: screenWidth * 0.5),
+      ); // полностью открытая
     } else {
       return Transform.scale(
-          scale:1.6,child:Image.asset( 'assets/book_open2.png',width: screenWidth  * 0.5 ,));
+        scale: 1.6,
+        child: Image.asset('assets/book_open2.png', width: screenWidth * 0.5),
+      );
     }
   }
 
@@ -415,255 +422,232 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     return Scaffold(
       backgroundColor: const Color(0xFFEADFFF),
       body: Stack(
-          children: [
-            Positioned.fill(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              'assets/background1.jpeg', // <-- путь к твоей картинке
+              fit: BoxFit.cover,
+            ),
+          ),
+          Positioned.fill(
+            child: Container(
+              // color:  Colors.white7,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.white70, // сверху полупрозрачный белый
+                    Colors.transparent, // вниз исчезает
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
+          if (currentPageState != 0)
+            Align(
+              alignment: Alignment.topCenter,
               child: Image.asset(
-                'assets/background1.jpeg', // <-- путь к твоей картинке
-                fit: BoxFit.cover,
+                'assets/title.png',
+                width: screenWidth < 800 ? 500.0 : 700,
               ),
             ),
-            Positioned.fill(
-              child: Container(
-                // color:  Colors.white7,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white70, // сверху полупрозрачный белый
-                      Colors.transparent, // вниз исчезает
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
+          FlashingAura(),
+          if (isBookVisible)
+            Align(
+              alignment: Alignment.center,
+
+              child: GestureDetector(
+                onTap: _nextPage,
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    final angle = _animation.value * pi;
+
+                    return Transform(
+                      alignment: Alignment.center,
+                      transform:
+                          Matrix4.identity()
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(currentPageState != 0 ? angle : 0),
+                      child: AnimatedOpacity(
+                        opacity: isBookVisible ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 15000),
+                        child: _getBookAsset(screenWidth),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
-            if (currentPageState != 0)
-              Align(
-                alignment: Alignment.topCenter,
-                child: Image.asset(
-                  'assets/title.png',
-                  width: screenWidth < 800 ? 500.0 : 700,
-                ),
-              ),
-            FlashingAura(),
-            if (isBookVisible)
-          Align(
-    alignment: Alignment.center,
 
-                  child: GestureDetector(
-                    onTap: _nextPage,
-                    child:  AnimatedBuilder(
-                      animation: _animation,
-                      builder: (context, child) {
-                        final angle = _animation.value * pi;
-                        final isFront = _animation.value < 0.5;
-
-                        return Transform(
-                          alignment: Alignment.center,
-                          transform:
-                              Matrix4.identity()
-                                ..setEntry(3, 2, 0.001)
-                                ..rotateY(currentPageState != 0 ? angle : 0),
-                          child: AnimatedOpacity(
-                            opacity: isBookVisible ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 15000),
-                            child:                                       _getBookAsset(screenWidth),
-
-                            // isFront
-                            //         ? Image.asset(
-                            //           _getBookAsset(),
-                            //           width: screenWidth * 0.6,
-                            //         )
-                            //         : (currentPageState == 0
-                            //             ? Image.asset(
-                            //               _getBookAsset(),
-                            //               width: screenWidth * 0.6,
-                            //             )
-                            //             : Transform(
-                            //               alignment: Alignment.center,
-                            //               transform:
-                            //                   Matrix4.identity()..rotateY(pi),
-                            //               child: Image.asset(
-                            //                 _getBookAsset(),
-                            //                 width: screenWidth * 0.6,
-                            //               ),
-                            //             )),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-
-            ...List.generate(15, (i) {
-              final arcPos = arcPositions[i];
-              final isLeft = i < 7;
-              final animalWidth = screenWidth < 800 ? 80.0 : 200.0;
-              double calculateTopOffset(
-                double dy,
-                double screenHeight,
-                int currentPageState,
-              ) {
-                if (currentPageState != 0) {
-                  if (screenHeight < 600) {
-                    return dy + 40;
-                  } else {
-                    return dy - 150;
-                  }
+          ...List.generate(15, (i) {
+            final arcPos = arcPositions[i];
+            final isLeft = i < 7;
+            final animalWidth = screenWidth < 800 ? 80.0 : 200.0;
+            double calculateTopOffset(
+              double dy,
+              double screenHeight,
+              int currentPageState,
+            ) {
+              if (currentPageState != 0) {
+                if (screenHeight < 600) {
+                  return dy + 40;
                 } else {
-                  if (screenHeight < 600) {
-                    return dy - 20;
-                  } else {
-                    return dy - 20;
-                  }
+                  return dy - 150;
+                }
+              } else {
+                if (screenHeight < 600) {
+                  return dy - 20;
+                } else {
+                  return dy - 20;
                 }
               }
+            }
 
-              final horizontalPadding =
-                  screenHeight < 800
-                      ? 1.0
-                      : 1.0; // симметричный отступ слева и справа
-              final dx =
-                  currentPageState != 0
-                      ? (isLeft
-                          ? horizontalPadding
-                          : screenWidth - horizontalPadding - animalWidth)
-                      : arcPos.dx - animalWidth / 2;
-              final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
+            final horizontalPadding =
+                screenHeight < 800
+                    ? 1.0
+                    : 1.0; // симметричный отступ слева и справа
+            final dx =
+                currentPageState != 0
+                    ? (isLeft
+                        ? horizontalPadding
+                        : screenWidth - horizontalPadding - animalWidth)
+                    : arcPos.dx - animalWidth / 2;
+            final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
 
-              final dy =
-                  currentPageState != 0
-                      ? screenHeight * 0.25 +
-                          (isLeft ? i : i - 7) * animalSpacing
-                      : arcPos.dy - 25;
-              return AnimatedPositioned(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeInOut,
-                left: dx,
-                top: calculateTopOffset(dy, screenHeight, currentPageState),
-                child: AnimatedOpacity(
-                  opacity: animalsVisible[i] ? 1.0 : 0.0,
-                  // Управление прозрачностью
-                  duration: const Duration(milliseconds: 200),
-                  child: AnimatedScale(
-                    scale: currentPageState != 0 ? 0.8 : 1.0,
-                    duration: const Duration(milliseconds: 700),
-                    child: Image.asset(
-                      'assets/pray${i + 1}.png',
-                      width: animalWidth,
-                    ),
+            final dy =
+                currentPageState != 0
+                    ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing
+                    : arcPos.dy - 25;
+            return AnimatedPositioned(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              left: dx,
+              top: calculateTopOffset(dy, screenHeight, currentPageState),
+              child: AnimatedOpacity(
+                opacity: animalsVisible[i] ? 1.0 : 0.0,
+                // Управление прозрачностью
+                duration: const Duration(milliseconds: 200),
+                child: AnimatedScale(
+                  scale: currentPageState != 0 ? 0.8 : 1.0,
+                  duration: const Duration(milliseconds: 700),
+                  child: Image.asset(
+                    'assets/pray${i + 1}.png',
+                    width: animalWidth,
                   ),
                 ),
-              );
-            }),
+              ),
+            );
+          }),
 
-            if (currentPageState != 0)
-              Positioned(
-                bottom: 110,
-                left: 0,
-                right: 0,
+          if (currentPageState != 0)
+            Positioned(
+              bottom: 110,
+              left: 0,
+              right: 0,
 
-                child: Center(
-                  child: Container(
-                    alignment: Alignment.topCenter,
-                    constraints: BoxConstraints(
-                      maxWidth:
-                          screenWidth < 600
-                              ? screenWidth / 1.1
-                              : screenWidth / 1.8,
-                    ),
-                    height: screenWidth < 600 ? 30 : 50,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF0088CC).withValues(alpha: 0.3),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white24),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SelectableText(
-                          "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize:
+              child: Center(
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  constraints: BoxConstraints(
+                    maxWidth:
+                        screenWidth < 600
+                            ? screenWidth / 1.1
+                            : screenWidth / 1.8,
+                  ),
+                  height: screenWidth < 600 ? 30 : 50,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF0088CC).withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.white24),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SelectableText(
+                        "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize:
+                              screenWidth < 600
+                                  ? screenWidth / 40
+                                  : screenWidth / 60,
+                        ),
+                      ),
+                      Center(
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.copy,
+                            color: Colors.white70,
+                            size:
                                 screenWidth < 600
                                     ? screenWidth / 40
                                     : screenWidth / 60,
                           ),
+                          onPressed: () {
+                            Clipboard.setData(
+                              ClipboardData(
+                                text:
+                                    'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
+                              ),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Copied!")),
+                            );
+                          },
                         ),
-                        Center(
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.copy,
-                              color: Colors.white70,
-                              size:
-                                  screenWidth < 600
-                                      ? screenWidth / 40
-                                      : screenWidth / 60,
-                            ),
-                            onPressed: () {
-                              Clipboard.setData(
-                                ClipboardData(
-                                  text:
-                                      'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
-                                ),
-                              );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text("Copied!")),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ),
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0, // 👈 это важно: растягивает по ширине родителя
+            child: SizedBox(
+              width: screenWidth,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildSocialButton(
+                    'Telegram',
+                    'https://t.me/claponsoltg',
+                    const Color(0xFF0088CC),
+                    'assets/tg.png',
+                  ),
+                  SizedBox(width: 8),
+                  _buildSocialButton(
+                    'X (Twitter)',
+                    'https://x.com/claponsolx',
+                    const Color(0xFF1DA1F2),
+                    'assets/x.png',
+                  ),
+                  SizedBox(width: 8),
 
-            Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0, // 👈 это важно: растягивает по ширине родителя
-              child: SizedBox(
-                width: screenWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  _buildSocialButton(
+                    'DexScreener',
+                    'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                    const Color(0xFF00FF9D),
+                    'assets/dex.png',
+                  ),
+                  SizedBox(width: 8),
 
-                    _buildSocialButton(
-                      'Telegram',
-                      'https://t.me/claponsoltg',
-                      const Color(0xFF0088CC),
-                      'assets/tg.png',
-                    ),
-                    SizedBox(width: 8),
-                    _buildSocialButton(
-                      'X (Twitter)',
-                      'https://x.com/claponsolx',
-                      const Color(0xFF1DA1F2),
-                      'assets/x.png',
-                    ),                    SizedBox(width: 8),
-
-                    _buildSocialButton(
-                      'DexScreener',
-                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                      const Color(0xFF00FF9D),
-                      'assets/dex.png',
-                    ),
-                    SizedBox(width: 8),
-
-                    _buildSocialButton(
-                      'DexScreener',
-                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                      const Color(0xFFECE091),
-                      'assets/pump.png',
-                    ),
-                  ],
-                ),
+                  _buildSocialButton(
+                    'DexScreener',
+                    'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                    const Color(0xFFECE091),
+                    'assets/pump.png',
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -671,7 +655,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
 Widget _buildSocialButton(String label, String url, Color color, String icon) {
   return MouseRegion(
     cursor: SystemMouseCursors.click,
-    child:InkWell(
+    child: InkWell(
       onTap: () {
         openUrl(url);
       },

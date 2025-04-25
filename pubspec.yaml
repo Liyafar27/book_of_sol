@@ -78,17 +78,15 @@ flutter:
     - assets/pray13.png
     - assets/pray14.png
     - assets/book.png
-    - assets/book1.png
-    - assets/book2.png
-    - assets/book3.png
-    - assets/book4.png
-    - assets/book_open.png
     - assets/book_open1.png
     - assets/book_open2.png
     - assets/book_open3.png
     - assets/book_open4.png
     - assets/book_open5.png
-    - assets/background.jpeg
+    - assets/book_open6.png
+    - assets/book_open7.png
+    - assets/book_open8.png
+
     - assets/background1.jpeg
 
   # To add assets to your application, add an assets section, like this:

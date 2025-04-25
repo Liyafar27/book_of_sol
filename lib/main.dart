@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 import 'src/browser_utils_stub.dart'
     if (dart.library.html) 'src/browser_utils_html.dart';
 
@@ -76,7 +75,8 @@ class _BookOfSolPageState extends State<BookOfSolPage>
       });
     });
     _opacityController = AnimationController(
-      duration: Duration(milliseconds: 900), // Устанавливаем длительность анимации
+      duration: Duration(milliseconds: 900),
+      // Устанавливаем длительность анимации
       vsync: this,
     );
 
@@ -99,16 +99,6 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     }
   }
 
-  void _flipPage() {
-    if (!flipped) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
-    setState(() {
-      flipped = !flipped;
-    });
-  }
 
   @override
   void dispose() {
@@ -139,107 +129,6 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     });
   }
 
-  // void _nextPage() {
-  //   setState(() {
-  //     currentPageState = (currentPageState + 1) % 11;
-  //   });
-  //   if (currentPageState != 0) _flipPage();
-  // }
-  // Widget _getBookAsset(double screenWidth) {
-  //   if (currentPageState == 0 || currentPageState >= 9) {
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     );
-  //   } else if (currentPageState >= 1 && currentPageState <= 8) {
-  //     return Transform.scale(
-  //       scale: 1.9,
-  //       child: Image.asset(
-  //         'assets/book_open${currentPageState}.png',
-  //         width: screenWidth * 0.5,
-  //       ),
-  //     );
-  //   } else {
-  //     // fallback
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     );
-  //   }
-  // }
-  // Widget _getBookAsset(double screenWidth) {
-  //   if (currentPageState == 0 || currentPageState >= 9) {
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     );
-  //   } else if (currentPageState >= 1 && currentPageState <= 8) {
-  //     return Transform.scale(
-  //       scale: 1.9,
-  //       child: Image.asset(
-  //         'assets/book_open$currentPageState.png',
-  //         width: screenWidth * 0.5,
-  //       ),
-  //     );
-  //   } else {
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     );
-  //   }
-  // }
-
-  // Widget _getBookAsset(double screenWidth) {
-  //   if (currentPageState == 0) {
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     ); // закрытая книга
-  //   } else if (currentPageState >= 1 && currentPageState <= 8) {
-  //     return Transform.scale(
-  //       scale: 1.9,
-  //       child: Image.asset(
-  //         'assets/book_open${currentPageState}.png',
-  //         width: screenWidth * 0.5,
-  //       ),
-  //     ); // открытие страниц по порядку
-  //   }
-  //   // else if (currentPageState == 10 || currentPageState == 11) {
-  //   //   return Transform.scale(
-  //   //     scale: 1.9,
-  //   //     child: Image.asset(
-  //   //       'assets/book_open2.png',
-  //   //       width: screenWidth * 0.5,
-  //   //     ),
-  //   //   ); // полностью открытая книга
-  //   // }
-  //   else {
-  //     // на всякий случай — дефолт
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     );
-  //   }
-  // }
-
-  // Widget _getBookAsset(screenWidth) {
-  //   if (currentPageState == 0) {
-  //     return Image.asset(
-  //       'assets/book.png',
-  //       width: screenWidth * 0.5,
-  //     ); // закрытая
-  //   } else if (currentPageState == 10) {
-  //     return Transform.scale(
-  //       scale: 1.9,
-  //       child: Image.asset('assets/book_open2.png', width: screenWidth * 0.5),
-  //     ); // полностью открытая
-  //   } else {
-  //     return Transform.scale(
-  //       scale: 1.9,
-  //       child: Image.asset('assets/book_open2.png', width: screenWidth * 0.5),
-  //     );
-  //   }
-  // }
   void _nextPage() {
     if (currentPageState >= 8) {
       currentPageState = 0; // сброс обратно в начало (закрытая книга)
@@ -248,10 +137,11 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     }
     setState(() {});
   }
+
   Widget _getBookAsset(double screenWidth) {
     if (currentPageState == 0 || currentPageState >= 9) {
       print("=> book.png");
-      return  Stack(
+      return Stack(
         children: [
           // Тень (размытая копия изображения)
           Positioned(
@@ -270,10 +160,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
               ),
             ),
           ),
-          Image.asset(
-            'assets/book.png',
-            width: screenWidth * 0.6,
-          ),
+          Image.asset('assets/book.png', width: screenWidth * 0.6),
         ],
       );
     } else if (currentPageState >= 1 && currentPageState <= 8) {
@@ -294,24 +181,24 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     'assets/book_open$currentPageState.png',
                     color: Colors.black, // можно сделать фиолетовой или голубой
                     colorBlendMode: BlendMode.srcIn,
-                    width:  screenWidth < 800 ? screenWidth * 0.4: screenWidth * 0.3,
+                    width:
+                        screenWidth < 800
+                            ? screenWidth * 0.4
+                            : screenWidth * 0.3,
                   ),
                 ),
               ),
             ),
             Image.asset(
               'assets/book_open$currentPageState.png',
-              width:  screenWidth < 800 ? screenWidth * 0.4: screenWidth * 0.3,
+              width: screenWidth < 800 ? screenWidth * 0.4 : screenWidth * 0.3,
             ),
           ],
         ),
       );
     } else {
       print("=> fallback book.png");
-      return Image.asset(
-        'assets/book.png',
-        width: screenWidth * 0.6,
-      );
+      return Image.asset('assets/book.png', width: screenWidth * 0.6);
     }
   }
 
@@ -323,9 +210,9 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     final screenWidth = screenSize.width;
     final screenHeight = screenSize.height;
     if (isBookVisible) {
-      _opacityController.forward();  // Начать анимацию при видимости
+      _opacityController.forward(); // Начать анимацию при видимости
     } else {
-      _opacityController.reverse();  // Скрыть при отсутствии видимости
+      _opacityController.reverse(); // Скрыть при отсутствии видимости
     }
 
     final arcPositions = getArcPositions(screenHeight, screenWidth);
@@ -379,50 +266,59 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     final displayAngle = isSecondHalf ? pi - angle : angle;
 
                     return Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.identity()
-                      ..setEntry(3, 2, 0.001)
-                      ..rotateY(displayAngle),
-                    child: FadeTransition(
-                    opacity: _opacityAnimation,
-                    child:  _getBookAsset(screenWidth), // текущая страница
-                    ));
+                      alignment: Alignment.center,
+                      transform:
+                          Matrix4.identity()
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(displayAngle),
+                      child: FadeTransition(
+                        opacity: _opacityAnimation,
+                        child: _getBookAsset(screenWidth), // текущая страница
+                      ),
+                    );
                   },
                 ),
               ),
             ),
-          if (isBookVisible &&currentPageState == 0)IgnorePointer(ignoring: true,
-            child: Align(
-              alignment: Alignment.center,child: Padding(
-                padding: const EdgeInsets.only(top:150.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.touch_app, // Иконка книги
-                      size: 40.0,
-                      color: Colors.white60, // Цвет иконки
-                    ),
-                    SizedBox(height: 8.0), // Отступ между иконкой и текстом
-                    Text(
-                      'Click the book', // Текст
-                      style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white70, // Цвет текста
+          if (isBookVisible && currentPageState == 0)
+            IgnorePointer(
+              ignoring: true,
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 150.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.touch_app, // Иконка книги
+                        size: 40.0,
+                        color: Colors.white60, // Цвет иконки
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 8.0), // Отступ между иконкой и текстом
+                      Text(
+                        'Click the book', // Текст
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70, // Цвет текста
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
           ...List.generate(15, (i) {
             final arcPos = arcPositions[i];
             final isLeft = i < 7;
             final animalWidth = screenWidth < 800 ? 80.0 : 200.0;
 
-            double calculateTopOffset(double dy, double screenHeight, int currentPageState) {
+            double calculateTopOffset(
+              double dy,
+              double screenHeight,
+              int currentPageState,
+            ) {
               if (currentPageState != 0) {
                 if (screenHeight < 600) {
                   return dy + 40;
@@ -435,30 +331,35 @@ class _BookOfSolPageState extends State<BookOfSolPage>
             }
 
             final horizontalPadding = screenHeight < 800 ? 1.0 : 1.0;
-            final dx = currentPageState != 0
-                ? (isLeft
-                ? horizontalPadding
-                : screenWidth - horizontalPadding - animalWidth)
-                : arcPos.dx - animalWidth / 2;
+            final dx =
+                currentPageState != 0
+                    ? (isLeft
+                        ? horizontalPadding
+                        : screenWidth - horizontalPadding - animalWidth)
+                    : arcPos.dx - animalWidth / 2;
 
             final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
-            final dy = currentPageState != 0
-                ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing
-                : arcPos.dy - 25;
+            final dy =
+                currentPageState != 0
+                    ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing
+                    : arcPos.dy - 25;
 
             return AnimatedPositioned(
-              duration: const Duration(milliseconds: 500), // Увеличиваем длительность анимации для плавности
+              duration: const Duration(milliseconds: 500),
+              // Увеличиваем длительность анимации для плавности
               curve: Curves.easeInOut,
               left: dx,
               top: calculateTopOffset(dy, screenHeight, currentPageState),
               child: AnimatedOpacity(
                 opacity: animalsVisible[i] ? 1.0 : 0.0,
                 // Анимация прозрачности
-                duration: const Duration(milliseconds: 500), // Увеличили длительность для плавности
+                duration: const Duration(milliseconds: 500),
+                // Увеличили длительность для плавности
                 child: AnimatedScale(
                   scale: currentPageState != 0 ? 0.8 : 1.0,
                   // Анимация масштаба
-                  duration: const Duration(milliseconds: 500), // Увеличили длительность для плавности
+                  duration: const Duration(milliseconds: 500),
+                  // Увеличили длительность для плавности
                   child: Image.asset(
                     'assets/pray${i + 1}.png',
                     width: animalWidth,
@@ -543,7 +444,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     'https://t.me/claponsoltg',
                     const Color(0xFF0088CC),
                     'assets/tg.png',
-                      screenWidth
+                    screenWidth,
                   ),
                   SizedBox(width: 8),
                   _buildSocialButton(
@@ -551,7 +452,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     'https://x.com/claponsolx',
                     const Color(0xFF1DA1F2),
                     'assets/x.png',
-                      screenWidth
+                    screenWidth,
                   ),
                   SizedBox(width: 8),
 
@@ -560,7 +461,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
                     const Color(0xFF00FF9D),
                     'assets/dex.png',
-                      screenWidth
+                    screenWidth,
                   ),
                   SizedBox(width: 8),
 
@@ -569,7 +470,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
                     const Color(0xFFECE091),
                     'assets/pump.png',
-                      screenWidth
+                    screenWidth,
                   ),
                 ],
               ),
@@ -581,7 +482,13 @@ class _BookOfSolPageState extends State<BookOfSolPage>
   }
 }
 
-Widget _buildSocialButton(String label, String url, Color color, String icon, screenWidth) {
+Widget _buildSocialButton(
+  String label,
+  String url,
+  Color color,
+  String icon,
+  screenWidth,
+) {
   return MouseRegion(
     cursor: SystemMouseCursors.click,
     child: InkWell(
@@ -589,7 +496,7 @@ Widget _buildSocialButton(String label, String url, Color color, String icon, sc
         openUrl(url);
       },
       child: Container(
-            width:  screenWidth < 800 ? screenWidth / 9: screenWidth / 15,
+        width: screenWidth < 800 ? screenWidth / 9 : screenWidth / 15,
 
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
@@ -616,29 +523,6 @@ Widget _buildSocialButton(String label, String url, Color color, String icon, sc
           ),
         ),
         child: Image.asset(icon, fit: BoxFit.cover),
-        // Row(
-        //   mainAxisSize: MainAxisSize.min,
-        //   children: [
-        //   Image.asset(
-        // icon,
-        //   fit: BoxFit.cover,
-        //
-        //     ),
-        //     const SizedBox(width: 12),
-        //
-        //     Text(
-        //       label,
-        //
-        //         style: TextStyle(
-        //           fontSize: 26,
-        //           fontWeight: FontWeight.w900,
-        //           color: Colors.white,
-        //           letterSpacing: 1,
-        //         ),
-        //
-        //     ),
-        //   ],
-        // ),
       ),
     ),
   );
@@ -765,12 +649,8 @@ class _FlashingAuraState extends State<FlashingAura>
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  // Colors.deepPurpleAccent.withOpacity(_opacityAnimation.value * 0.5),
-
-                  // Colors.blue.shade100.withOpacity(_opacityAnimation.value * 0.6),
                   Colors.indigoAccent.withOpacity(_opacityAnimation.value),
 
-                  // Colors.indigoAccent.withOpacity(_opacityAnimation.value* 0.21),
                   Colors.white70.withOpacity(_opacityAnimation.value * 0.4),
                   Colors.yellowAccent.withOpacity(
                     _opacityAnimation.value * 0.5,

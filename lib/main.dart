@@ -99,7 +99,6 @@ class _BookOfSolPageState extends State<BookOfSolPage>
     }
   }
 
-
   @override
   void dispose() {
     _controller.dispose();

@@ -3,11 +3,11 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"flutter_bootstrap.js": "512e5b9e3e67319e7a46738d1ee61c13",
+const RESOURCES = {"flutter_bootstrap.js": "c27c608e8531c18c783a30866589075e",
 "version.json": "f42413829cedbe0a241e36325a721d08",
 "index.html": "bb5f19b85bd21c30833c309a33e612b7",
 "/": "bb5f19b85bd21c30833c309a33e612b7",
-"main.dart.js": "3fee77867834e6d10f46f9c003c1522f",
+"main.dart.js": "4334d588798ea2cdc506e205c40b4947",
 "flutter.js": "76f08d47ff9f5715220992f993002504",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
@@ -32,7 +32,7 @@ const RESOURCES = {"flutter_bootstrap.js": "512e5b9e3e67319e7a46738d1ee61c13",
 "assets/assets/x.png": "54637961216a17952f0dc396555b074b",
 "assets/assets/pray14.png": "c47041566a30dd3d1d90ac0a02c2ef98",
 "assets/assets/pray15.png": "bac33aa2356c43ea4e39b15437c11023",
-"assets/assets/book_open1.png": "a28724e15f0acaa1ef3dd9758356fedb",
+"assets/assets/book_open1.png": "73fb437caa3a0744ddf79f85be6c2a47",
 "assets/assets/book_open3.png": "8d53ab4707aebb3a6c7ccb37c51beced",
 "assets/assets/book_open2.png": "2cef82a74cdcd271c7f460b710f486cc",
 "assets/assets/book_open6.png": "ba950cfa5563b60663b1dde98fa49e8b",

@@ -429,7 +429,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                 ),
               ),
             ),
-          if (isBookVisible && currentPageState == 0)  Positioned(
+          if (isBookVisible)  Positioned(
             bottom: 10,
             left: 0,
             right: 0, // 👈 это важно: растягивает по ширине родителя

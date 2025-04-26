@@ -35922,7 +35922,7 @@ j=A.aS(4278225100).od(0.3)
 i=A.oJ(12)
 h=A.agl(B.zB,1)
 g=A.o0(e,e,B.k,e,e,e,e,e,e,e,e,m?r/40:r/60,e,e,e,e,e,!0,e,e,e,e,e,e,e,e)
-o.push(A.q2(110,A.mi(A.ue(B.h6,A.Hl(A.c([new A.xr(u.m,g,e),A.mi(A.akW(e,e,A.ah5(B.Bd,B.w,e,m?r/40:r/60),e,e,new A.a8t(a),e,e),e,e)],p),B.bv,B.dC),B.B,new A.al(0,l,0,1/0),new A.dg(j,e,h,i,e,e,B.aE),k,e,e,e),e,e),e,e,0,0,e,e))}if(f.w&&f.d===0)o.push(A.q2(10,A.dZ(A.Hl(A.c([A.aez("Telegram","https://t.me/claponsoltg",B.zb,"assets/tg.png",r),A.dZ(e,e,8),A.aez("X (Twitter)","https://x.com/claponsolx",B.yZ,"assets/x.png",r),A.dZ(e,e,8),A.aez(d,c,B.zi,"assets/dex.png",r),A.dZ(e,e,8),A.aez(d,c,B.zv,"assets/pump.png",r)],p),B.qu,B.fd),e,r),e,e,0,0,e,e))
+o.push(A.q2(110,A.mi(A.ue(B.h6,A.Hl(A.c([new A.xr(u.m,g,e),A.mi(A.akW(e,e,A.ah5(B.Bd,B.w,e,m?r/40:r/60),e,e,new A.a8t(a),e,e),e,e)],p),B.bv,B.dC),B.B,new A.al(0,l,0,1/0),new A.dg(j,e,h,i,e,e,B.aE),k,e,e,e),e,e),e,e,0,0,e,e))}if(f.w)o.push(A.q2(10,A.dZ(A.Hl(A.c([A.aez("Telegram","https://t.me/claponsoltg",B.zb,"assets/tg.png",r),A.dZ(e,e,8),A.aez("X (Twitter)","https://x.com/claponsolx",B.yZ,"assets/x.png",r),A.dZ(e,e,8),A.aez(d,c,B.zi,"assets/dex.png",r),A.dZ(e,e,8),A.aez(d,c,B.zv,"assets/pump.png",r)],p),B.qu,B.fd),e,r),e,e,0,0,e,e))
 return new A.xa(A.qw(B.cc,o,B.Z,B.cL),B.z_,e)}}
 A.a8x.prototype={
 $0(){var s=this.a

@@ -340,11 +340,11 @@ class _BookOfSolPageState extends State<BookOfSolPage>
             final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
             final dy =
                 currentPageState != 0
-                    ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing
+                    ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing +( screenHeight < 600 ? 20.0 : 1.0)
                     : arcPos.dy - 25;
 
             return AnimatedPositioned(
-              duration: const Duration(milliseconds: 500),
+              duration: const Duration(milliseconds: 300),
               // Увеличиваем длительность анимации для плавности
               curve: Curves.easeInOut,
               left: dx,
@@ -352,12 +352,12 @@ class _BookOfSolPageState extends State<BookOfSolPage>
               child: AnimatedOpacity(
                 opacity: animalsVisible[i] ? 1.0 : 0.0,
                 // Анимация прозрачности
-                duration: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 300),
                 // Увеличили длительность для плавности
                 child: AnimatedScale(
                   scale: currentPageState != 0 ? 0.8 : 1.0,
                   // Анимация масштаба
-                  duration: const Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 300),
                   // Увеличили длительность для плавности
                   child: Image.asset(
                     'assets/pray${i + 1}.png',
@@ -429,7 +429,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                 ),
               ),
             ),
-          Positioned(
+          if (isBookVisible && currentPageState == 0)  Positioned(
             bottom: 10,
             left: 0,
             right: 0, // 👈 это важно: растягивает по ширине родителя

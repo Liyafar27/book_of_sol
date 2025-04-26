@@ -139,7 +139,6 @@ class _BookOfSolPageState extends State<BookOfSolPage>
 
   Widget _getBookAsset(double screenWidth) {
     if (currentPageState == 0 || currentPageState >= 9) {
-      print("=> book.png");
       return Stack(
         children: [
           // Тень (размытая копия изображения)
@@ -163,7 +162,6 @@ class _BookOfSolPageState extends State<BookOfSolPage>
         ],
       );
     } else if (currentPageState >= 1 && currentPageState <= 8) {
-      print("=> book_open$currentPageState.png");
       return Transform.scale(
         scale: 1.9,
         child: Stack(
@@ -196,15 +194,12 @@ class _BookOfSolPageState extends State<BookOfSolPage>
         ),
       );
     } else {
-      print("=> fallback book.png");
       return Image.asset('assets/book.png', width: screenWidth * 0.6);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Current page state: $currentPageState");
-
     final screenSize = MediaQuery.of(context).size;
     final screenWidth = screenSize.width;
     final screenHeight = screenSize.height;
@@ -340,7 +335,9 @@ class _BookOfSolPageState extends State<BookOfSolPage>
             final animalSpacing = screenHeight < 600 ? 30.0 : 100.0;
             final dy =
                 currentPageState != 0
-                    ? screenHeight * 0.25 + (isLeft ? i : i - 7) * animalSpacing +( screenHeight < 600 ? 20.0 : 1.0)
+                    ? screenHeight * 0.25 +
+                        (isLeft ? i : i - 7) * animalSpacing +
+                        (screenHeight < 600 ? 20.0 : 1.0)
                     : arcPos.dy - 25;
 
             return AnimatedPositioned(
@@ -429,52 +426,53 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                 ),
               ),
             ),
-          if (isBookVisible)  Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0, // 👈 это важно: растягивает по ширине родителя
-            child: SizedBox(
-              width: screenWidth,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _buildSocialButton(
-                    'Telegram',
-                    'https://t.me/claponsoltg',
-                    const Color(0xFF0088CC),
-                    'assets/tg.png',
-                    screenWidth,
-                  ),
-                  SizedBox(width: 8),
-                  _buildSocialButton(
-                    'X (Twitter)',
-                    'https://x.com/claponsolx',
-                    const Color(0xFF1DA1F2),
-                    'assets/x.png',
-                    screenWidth,
-                  ),
-                  SizedBox(width: 8),
+          if (isBookVisible)
+            Positioned(
+              bottom: 10,
+              left: 0,
+              right: 0, // 👈 это важно: растягивает по ширине родителя
+              child: SizedBox(
+                width: screenWidth,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildSocialButton(
+                      'Telegram',
+                      'https://t.me/claponsoltg',
+                      const Color(0xFF0088CC),
+                      'assets/tg.png',
+                      screenWidth,
+                    ),
+                    SizedBox(width: 8),
+                    _buildSocialButton(
+                      'X (Twitter)',
+                      'https://x.com/claponsolx',
+                      const Color(0xFF1DA1F2),
+                      'assets/x.png',
+                      screenWidth,
+                    ),
+                    SizedBox(width: 8),
 
-                  _buildSocialButton(
-                    'DexScreener',
-                    'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                    const Color(0xFF00FF9D),
-                    'assets/dex.png',
-                    screenWidth,
-                  ),
-                  SizedBox(width: 8),
+                    _buildSocialButton(
+                      'DexScreener',
+                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                      const Color(0xFF00FF9D),
+                      'assets/dex.png',
+                      screenWidth,
+                    ),
+                    SizedBox(width: 8),
 
-                  _buildSocialButton(
-                    'DexScreener',
-                    'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                    const Color(0xFFECE091),
-                    'assets/pump.png',
-                    screenWidth,
-                  ),
-                ],
+                    _buildSocialButton(
+                      'DexScreener',
+                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                      const Color(0xFFECE091),
+                      'assets/pump.png',
+                      screenWidth,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
@@ -578,10 +576,10 @@ class _PulsingLightState extends State<PulsingLight>
               height: 200,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.purpleAccent.withOpacity(_opacityAnimation.value),
+                color: Colors.purpleAccent.withValues(alpha:_opacityAnimation.value),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.purpleAccent.withOpacity(
+                    color: Colors.purpleAccent.withValues(alpha:
                       _opacityAnimation.value,
                     ),
                     blurRadius: 80,
@@ -648,10 +646,10 @@ class _FlashingAuraState extends State<FlashingAura>
               shape: BoxShape.circle,
               gradient: RadialGradient(
                 colors: [
-                  Colors.indigoAccent.withOpacity(_opacityAnimation.value),
+                  Colors.indigoAccent.withValues(alpha:_opacityAnimation.value),
 
-                  Colors.white70.withOpacity(_opacityAnimation.value * 0.4),
-                  Colors.yellowAccent.withOpacity(
+                  Colors.white70.withValues(alpha:_opacityAnimation.value * 0.4),
+                  Colors.yellowAccent.withValues(alpha:
                     _opacityAnimation.value * 0.5,
                   ),
                 ],

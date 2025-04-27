@@ -240,9 +240,10 @@ class _BookOfSolPageState extends State<BookOfSolPage>
               alignment: Alignment.topCenter,
               child: Image.asset(
                 'assets/title.png',
-                width: screenWidth < 800 ? 500.0 : 700,
+                width: screenWidth * 0.7, // например, 70% от ширины экрана
               ),
             ),
+
           FlashingAura(),
           if (isBookVisible)
             Align(
@@ -306,7 +307,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
           ...List.generate(15, (i) {
             final arcPos = arcPositions[i];
             final isLeft = i < 7;
-            final animalWidth = screenWidth < 800 ? 80.0 : 200.0;
+            final animalWidth = screenWidth * 0.15; // 10% от ширины экрана
 
             double calculateTopOffset(
               double dy,
@@ -364,115 +365,215 @@ class _BookOfSolPageState extends State<BookOfSolPage>
               ),
             );
           }),
-          if (currentPageState != 0)
-            Positioned(
-              bottom: 110,
-              left: 0,
-              right: 0,
-
-              child: Center(
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  constraints: BoxConstraints(
-                    maxWidth:
-                        screenWidth < 600
-                            ? screenWidth / 1.1
-                            : screenWidth / 1.8,
-                  ),
-                  height: screenWidth < 600 ? 30 : 50,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF0088CC).withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.white24),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SelectableText(
-                        "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              screenWidth < 600
-                                  ? screenWidth / 40
-                                  : screenWidth / 60,
-                        ),
+          // if (currentPageState != 0)
+            if (isBookVisible)
+              Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // if (currentPageState != 0)
+                    Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical:4),
+                      constraints: BoxConstraints(
+                        maxWidth: screenWidth < 600 ? screenWidth / 1.1 : screenWidth / 1.8,
+                        minHeight: 50, // добавил минимальную высоту
                       ),
-                      Center(
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.copy,
-                            color: Colors.white70,
-                            size:
-                                screenWidth < 600
+                      decoration: BoxDecoration(
+                        color: Color(0xFF0088CC).withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.white24),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: SelectableText(
+                              "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenWidth < 600
                                     ? screenWidth / 40
                                     : screenWidth / 60,
-                          ),
-                          onPressed: () {
-                            Clipboard.setData(
-                              ClipboardData(
-                                text:
-                                    'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
                               ),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Copied!")),
-                            );
-                          },
-                        ),
+                              textAlign: TextAlign.center, // выровнять текст по центру если надо
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.white70,
+                              size: screenWidth < 600
+                                  ? screenWidth / 40
+                                  : screenWidth / 60,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(
+                                ClipboardData(
+                                  text: 'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
+                                ),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Copied!")),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          if (isBookVisible)
-            Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0, // 👈 это важно: растягивает по ширине родителя
-              child: SizedBox(
-                width: screenWidth,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildSocialButton(
-                      'Telegram',
-                      'https://t.me/claponsoltg',
-                      const Color(0xFF0088CC),
-                      'assets/tg.png',
-                      screenWidth,
-                    ),
-                    SizedBox(width: 8),
-                    _buildSocialButton(
-                      'X (Twitter)',
-                      'https://x.com/claponsolx',
-                      const Color(0xFF1DA1F2),
-                      'assets/x.png',
-                      screenWidth,
-                    ),
-                    SizedBox(width: 8),
-
-                    _buildSocialButton(
-                      'DexScreener',
-                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                      const Color(0xFF00FF9D),
-                      'assets/dex.png',
-                      screenWidth,
-                    ),
-                    SizedBox(width: 8),
-
-                    _buildSocialButton(
-                      'DexScreener',
-                      'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
-                      const Color(0xFFECE091),
-                      'assets/pump.png',
-                      screenWidth,
+                    )
+,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSocialButton(
+                          'Telegram',
+                          'https://t.me/claponsoltg',
+                          const Color(0xFF0088CC),
+                          'assets/tg.png',
+                          screenWidth,
+                        ),
+                        SizedBox(width: 8),
+                        _buildSocialButton(
+                          'X (Twitter)',
+                          'https://x.com/claponsolx',
+                          const Color(0xFF1DA1F2),
+                          'assets/x.png',
+                          screenWidth,
+                        ),
+                        SizedBox(width: 8),
+                        _buildSocialButton(
+                          'DexScreener',
+                          'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                          const Color(0xFF00FF9D),
+                          'assets/dex.png',
+                          screenWidth,
+                        ),
+                        SizedBox(width: 8),
+                        _buildSocialButton(
+                          'Pump.fun',
+                          'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                          const Color(0xFFECE091),
+                          'assets/pump.png',
+                          screenWidth,
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ),
+
+          //   Positioned(
+          //     bottom: 110,
+          //     left: 0,
+          //     right: 0,
+          //
+          //     child: Center(
+          //       child: Container(
+          //         alignment: Alignment.topCenter,
+          //         constraints: BoxConstraints(
+          //           maxWidth:
+          //               screenWidth < 600
+          //                   ? screenWidth / 1.1
+          //                   : screenWidth / 1.8,
+          //         ),
+          //         height: screenWidth < 600 ? 30 : 50,
+          //         decoration: BoxDecoration(
+          //           color: Color(0xFF0088CC).withValues(alpha: 0.3),
+          //           borderRadius: BorderRadius.circular(12),
+          //           border: Border.all(color: Colors.white24),
+          //         ),
+          //         child: Row(
+          //           mainAxisSize: MainAxisSize.min,
+          //           children: [
+          //             SelectableText(
+          //               "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+          //               style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize:
+          //                     screenWidth < 600
+          //                         ? screenWidth / 40
+          //                         : screenWidth / 60,
+          //               ),
+          //             ),
+          //             Center(
+          //               child: IconButton(
+          //                 icon: Icon(
+          //                   Icons.copy,
+          //                   color: Colors.white70,
+          //                   size:
+          //                       screenWidth < 600
+          //                           ? screenWidth / 40
+          //                           : screenWidth / 60,
+          //                 ),
+          //                 onPressed: () {
+          //                   Clipboard.setData(
+          //                     ClipboardData(
+          //                       text:
+          //                           'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
+          //                     ),
+          //                   );
+          //                   ScaffoldMessenger.of(context).showSnackBar(
+          //                     const SnackBar(content: Text("Copied!")),
+          //                   );
+          //                 },
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // if (isBookVisible)
+          //   Positioned(
+          //     bottom: 10,
+          //     left: 0,
+          //     right: 0, // 👈 это важно: растягивает по ширине родителя
+          //     child: SizedBox(
+          //       width: screenWidth,
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.center,
+          //         children: [
+          //           _buildSocialButton(
+          //             'Telegram',
+          //             'https://t.me/claponsoltg',
+          //             const Color(0xFF0088CC),
+          //             'assets/tg.png',
+          //             screenWidth,
+          //           ),
+          //           SizedBox(width: 8),
+          //           _buildSocialButton(
+          //             'X (Twitter)',
+          //             'https://x.com/claponsolx',
+          //             const Color(0xFF1DA1F2),
+          //             'assets/x.png',
+          //             screenWidth,
+          //           ),
+          //           SizedBox(width: 8),
+          //
+          //           _buildSocialButton(
+          //             'DexScreener',
+          //             'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+          //             const Color(0xFF00FF9D),
+          //             'assets/dex.png',
+          //             screenWidth,
+          //           ),
+          //           SizedBox(width: 8),
+          //
+          //           _buildSocialButton(
+          //             'DexScreener',
+          //             'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+          //             const Color(0xFFECE091),
+          //             'assets/pump.png',
+          //             screenWidth,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
     );

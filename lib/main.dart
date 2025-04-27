@@ -372,17 +372,18 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                 left: 0,
                 right: 0,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     // if (currentPageState != 0)
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.symmetric(horizontal:4, vertical:4),
-                      constraints: BoxConstraints(
-                        maxWidth: screenWidth < 600 ? screenWidth / 1.1 : screenWidth / 1.8,
-                        minHeight:  screenHeight<600 ? screenHeight / 65 : screenHeight /95// добавил минимальную высоту
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal:1, vertical:1),
+                      width: screenWidth /1.81 ,
+                      // constraints: BoxConstraints(
+                      //   maxWidth: screenWidth < 400 ? screenWidth /2.81 : screenWidth / 1.8,
+                      //   minHeight:  screenHeight < 400 ? screenHeight / 70 : screenHeight /95// добавил минимальную высоту
+                      // ),
                       decoration: BoxDecoration(
                         color: Color(0xFF0088CC).withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(12),
@@ -391,25 +392,20 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Flexible(
-                            child: SelectableText(
-                              "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: screenWidth < 600
-                                    ? screenWidth /35
-                                    : screenWidth / 60,
-                              ),
-                              textAlign: TextAlign.center, // выровнять текст по центру если надо
+                          SelectableText(
+                            "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize:screenWidth / 65,
                             ),
+                            textAlign: TextAlign.center, // выровнять текст по центру если надо
                           ),
                           IconButton(
                             icon: Icon(
                               Icons.copy,
                               color: Colors.white70,
-                              size: screenWidth < 600
-                                  ? screenWidth / 30
-                                  : screenWidth / 60,
+                              size:  screenWidth / 50
+
                             ),
                             onPressed: () {
                               Clipboard.setData(

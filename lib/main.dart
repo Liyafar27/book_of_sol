@@ -378,10 +378,10 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical:4),
+                      padding: const EdgeInsets.symmetric(horizontal:4, vertical:4),
                       constraints: BoxConstraints(
                         maxWidth: screenWidth < 600 ? screenWidth / 1.1 : screenWidth / 1.8,
-                        minHeight: 50, // добавил минимальную высоту
+                        minHeight:  screenHeight<600 ? screenHeight / 65 : screenHeight /95// добавил минимальную высоту
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xFF0088CC).withValues(alpha: 0.3),
@@ -397,7 +397,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: screenWidth < 600
-                                    ? screenWidth / 40
+                                    ? screenWidth /35
                                     : screenWidth / 60,
                               ),
                               textAlign: TextAlign.center, // выровнять текст по центру если надо
@@ -408,7 +408,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                               Icons.copy,
                               color: Colors.white70,
                               size: screenWidth < 600
-                                  ? screenWidth / 40
+                                  ? screenWidth / 30
                                   : screenWidth / 60,
                             ),
                             onPressed: () {

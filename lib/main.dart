@@ -108,7 +108,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
   }
 
   List<Offset> getArcPositions(double screenHeight, double screenWidth) {
-    final radius = screenWidth < 800 ? 200.0 : 400.0;
+    final radius = screenWidth < 600 ? screenWidth/2.5: screenWidth/3.5;
     final center = Offset(screenWidth / 2, screenHeight / 2);
 
     return List.generate(15, (i) {
@@ -245,65 +245,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
             ),
 
           FlashingAura(),
-          if (isBookVisible)
-            Align(
-              alignment: Alignment.center,
 
-              child: GestureDetector(
-                onTap: _nextPage,
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) {
-                    final angle = _animation.value * pi;
-                    // final angle = _animation.value * pi;
-                    final isSecondHalf = angle > pi / 2;
-
-                    final displayAngle = isSecondHalf ? pi - angle : angle;
-
-                    return Transform(
-                      alignment: Alignment.center,
-                      transform:
-                          Matrix4.identity()
-                            ..setEntry(3, 2, 0.001)
-                            ..rotateY(displayAngle),
-                      child: FadeTransition(
-                        opacity: _opacityAnimation,
-                        child: _getBookAsset(screenWidth), // текущая страница
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          if (isBookVisible && currentPageState == 0)
-            IgnorePointer(
-              ignoring: true,
-              child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 150.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.touch_app, // Иконка книги
-                        size: 40.0,
-                        color: Colors.white60, // Цвет иконки
-                      ),
-                      SizedBox(height: 8.0), // Отступ между иконкой и текстом
-                      Text(
-                        'Click the book', // Текст
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white70, // Цвет текста
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
           ...List.generate(15, (i) {
             final arcPos = arcPositions[i];
             final isLeft = i < 7;
@@ -366,6 +308,65 @@ class _BookOfSolPageState extends State<BookOfSolPage>
             );
           }),
           // if (currentPageState != 0)
+          if (isBookVisible)
+            Align(
+              alignment: Alignment.center,
+
+              child: GestureDetector(
+                onTap: _nextPage,
+                child: AnimatedBuilder(
+                  animation: _animation,
+                  builder: (context, child) {
+                    final angle = _animation.value * pi;
+                    // final angle = _animation.value * pi;
+                    final isSecondHalf = angle > pi / 2;
+
+                    final displayAngle = isSecondHalf ? pi - angle : angle;
+
+                    return Transform(
+                      alignment: Alignment.center,
+                      transform:
+                      Matrix4.identity()
+                        ..setEntry(3, 2, 0.001)
+                        ..rotateY(displayAngle),
+                      child: FadeTransition(
+                        opacity: _opacityAnimation,
+                        child: _getBookAsset(screenWidth), // текущая страница
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          if (isBookVisible && currentPageState == 0)
+            IgnorePointer(
+              ignoring: true,
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 150.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.touch_app, // Иконка книги
+                        size: 40.0,
+                        color: Colors.white60, // Цвет иконки
+                      ),
+                      SizedBox(height: 8.0), // Отступ между иконкой и текстом
+                      Text(
+                        'Click the book', // Текст
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white70, // Цвет текста
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             if (isBookVisible)
               Positioned(
                 bottom: 10,
@@ -379,8 +380,8 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                       alignment: Alignment.center,
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.symmetric(horizontal:2, vertical:2),
-                      width: screenWidth /1.6 ,
-                      height: screenWidth / 25,
+                      width: screenHeight < 600 ?screenWidth /1.5:screenWidth /1.9 ,
+                      height: screenHeight < 600 ? screenWidth / 25: screenWidth / 35,
                       decoration: BoxDecoration(
                         color: Color(0xFF0088CC).withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(12),
@@ -393,7 +394,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                             "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize:screenWidth / 65,
+                              fontSize:screenHeight < 400 ? screenWidth / 50:screenWidth / 70,
                             ),
                             textAlign: TextAlign.center, // выровнять текст по центру если надо
                           ),
@@ -402,7 +403,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                             icon: Icon(
                               Icons.copy,
                               color: Colors.white70,
-                              size:  screenWidth / 50
+                              size: screenHeight < 600 ? screenWidth / 35:screenWidth / 50
 
                             ),
                             onPressed: () {

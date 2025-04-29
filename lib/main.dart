@@ -387,6 +387,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: Colors.white24),
                       ),
+
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

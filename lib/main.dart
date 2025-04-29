@@ -392,7 +392,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SelectableText(
-                            "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
+                            "FL479rAwUf3t8FRQ9F37euw5PU3ge5x9YQnFPee1pump",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize:screenHeight < 400 ? screenWidth / 45:screenWidth / 70,
@@ -410,7 +410,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                             onPressed: () {
                               Clipboard.setData(
                                 ClipboardData(
-                                  text: 'Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump',
+                                  text: 'FL479rAwUf3t8FRQ9F37euw5PU3ge5x9YQnFPee1pump',
                                 ),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(

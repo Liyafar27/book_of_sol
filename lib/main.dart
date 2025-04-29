@@ -216,8 +216,8 @@ class _BookOfSolPageState extends State<BookOfSolPage>
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/background1.jpeg', // <-- путь к твоей картинке
-              fit: BoxFit.cover,
+              'assets/background1.png', // <-- путь к твоей картинке
+              fit: BoxFit.fill,
             ),
           ),
           Positioned.fill(
@@ -427,7 +427,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                       children: [
                         _buildSocialButton(
                           'Telegram',
-                          'https://t.me/claponsoltg',
+                          'https://t.me/newlaunchpx',
                           const Color(0xFF0088CC),
                           'assets/tg.png',
                           screenWidth,
@@ -435,7 +435,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                         SizedBox(width: 8),
                         _buildSocialButton(
                           'X (Twitter)',
-                          'https://x.com/claponsolx',
+                          'https://x.com/BookOfSolCTO',
                           const Color(0xFF1DA1F2),
                           'assets/x.png',
                           screenWidth,
@@ -443,7 +443,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                         SizedBox(width: 8),
                         _buildSocialButton(
                           'DexScreener',
-                          'https://dexscreener.com/solana/zgwc875vgz2rbenzbspuaxlqcng7idfh2bmmusjfmez',
+                          'https://dexscreener.com/solana/hvonb6agmtzgtx8xrozzsqrxj2rz72bqpvibhapznhzw?maker=GC5gtyTQ7244DmmxmU8D8ErhuRH6Di1XPummv9ZLYXmr',
                           const Color(0xFF00FF9D),
                           'assets/dex.png',
                           screenWidth,

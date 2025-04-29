@@ -350,14 +350,14 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                     children: [
                       Icon(
                         Icons.touch_app, // Иконка книги
-                        size: 40.0,
+                        size:  screenWidth<600? screenWidth *0.05:screenWidth *0.03,
                         color: Colors.white60, // Цвет иконки
                       ),
                       SizedBox(height: 8.0), // Отступ между иконкой и текстом
                       Text(
                         'Click the book', // Текст
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize:screenWidth<600? screenWidth *0.04:screenWidth *0.02,
                           fontWeight: FontWeight.bold,
                           color: Colors.white70, // Цвет текста
                         ),
@@ -381,7 +381,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                       margin: const EdgeInsets.only(bottom: 10),
                       padding: const EdgeInsets.symmetric(horizontal:2, vertical:2),
                       width: screenHeight < 600 ?screenWidth /1.5:screenWidth /1.9 ,
-                      height: screenHeight < 600 ? screenWidth / 25: screenWidth / 35,
+                      height: screenWidth < 600 ? screenWidth / 21: screenWidth / 35,
                       decoration: BoxDecoration(
                         color: Color(0xFF0088CC).withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(12),
@@ -394,7 +394,7 @@ class _BookOfSolPageState extends State<BookOfSolPage>
                             "Dyw2RkHDCAFkkXCYsp13b1h1vvReG1WL8uuWLNXLpump",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize:screenHeight < 400 ? screenWidth / 50:screenWidth / 70,
+                              fontSize:screenHeight < 400 ? screenWidth / 45:screenWidth / 70,
                             ),
                             textAlign: TextAlign.center, // выровнять текст по центру если надо
                           ),
